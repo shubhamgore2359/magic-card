@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Magic Shivnya Card</title>
+
+<style>
+body {
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  overflow:hidden;
+  text-align:center;
+}
+
+/* Glass UI */
+.container {
+  margin-top:80px;
+  backdrop-filter: blur(10px);
+}
+
+input, button {
+  padding:12px;
+  border:none;
+  border-radius:12px;
+  font-size:18px;
+}
+
+button {
+  background:#ff4da6;
+  color:white;
+  cursor:pointer;
+}
+
+/* Card */
+.card {
+  display:none;
+  margin-top:30px;
+  padding:20px;
+  border-radius:20px;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(15px);
+  animation:fadeIn 2s;
+}
+
+.name {
+  font-size:28px;
+  color:white;
+  text-shadow:0 0 10px pink;
+}
+
+/* Slideshow */
+.slideshow img {
+  width:220px;
+  border-radius:20px;
+  margin-top:10px;
+  box-shadow:0 0 20px pink;
+}
+
+/* Butterflies */
+.butterfly {
+  position:absolute;
+  width:40px;
+  animation:fly linear infinite;
+}
+@keyframes fly {
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+
+/* Hearts */
+.heart {
+  position:absolute;
+  font-size:20px;
+  animation:float 6s linear infinite;
+}
+@keyframes float {
+  0%{transform:translateY(100vh);}
+  100%{transform:translateY(-10vh);}
+}
+
+/* Confetti */
+.confetti {
+  position:absolute;
+  width:8px;
+  height:8px;
+  background:red;
+  animation:confettiFall 4s linear infinite;
+}
+@keyframes confettiFall {
+  0%{transform:translateY(-10vh);}
+  100%{transform:translateY(100vh);}
+}
+
+/* Typing */
+.typing {
+  color:white;
+  margin-top:15px;
+  font-size:18px;
+}
+
+/* Fade */
+@keyframes fadeIn {
+  from{opacity:0;}
+  to{opacity:1;}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Enter Secret Name 💖</h2>
+  <input type="text" id="nameInput" placeholder="Type here...">
+  <button onclick="openMagic()">Unlock ✨</button>
+
+  <div class="card" id="card">
+    <div class="name">Shivnya Deepak Gore 💖</div>
+
+    <div class="slideshow">
+      <img id="slide" src="https://i.imgur.com/BoN9kdC.png">
+    </div>
+
+    <p class="typing" id="msg"></p>
+  </div>
+</div>
+
+<audio id="music" src="https://www.fesliyanstudios.com/play-mp3/387"></audio>
+
+<script>
+function openMagic(){
+  let name=document.getElementById("nameInput").value.toLowerCase();
+
+  if(name==="shivnya"){
+
+    document.getElementById("card").style.display="block";
+    document.getElementById("music").play();
+
+    // butterflies
+    for(let i=0;i<15;i++){
+      let b=document.createElement("img");
+      b.src="https://i.imgur.com/QZ6KQKZ.png";
+      b.className="butterfly";
+      b.style.left=Math.random()*100+"vw";
+      b.style.animationDuration=(3+Math.random()*5)+"s";
+      document.body.appendChild(b);
+    }
+
+    // hearts
+    for(let i=0;i<12;i++){
+      let h=document.createElement("div");
+      h.innerHTML="❤️";
+      h.className="heart";
+      h.style.left=Math.random()*100+"vw";
+      document.body.appendChild(h);
+    }
+
+    // confetti
+    for(let i=0;i<30;i++){
+      let c=document.createElement("div");
+      c.className="confetti";
+      c.style.left=Math.random()*100+"vw";
+      c.style.background=["red","yellow","blue","green"][Math.floor(Math.random()*4)];
+      document.body.appendChild(c);
+    }
+
+    // typing message
+    let text="You are magical, beautiful and one in a million ✨💖";
+    let i=0;
+    function type(){
+      if(i<text.length){
+        document.getElementById("msg").innerHTML+=text.charAt(i);
+        i++;
+        setTimeout(type,40);
+      }
+    }
+    type();
+
+    // slideshow
+    let images=[
+      "https://i.imgur.com/BoN9kdC.png",
+      "https://i.imgur.com/2nCt3Sbl.jpg",
+      "https://i.imgur.com/tXqz9bCl.jpg"
+    ];
+    let index=0;
+    setInterval(()=>{
+      index=(index+1)%images.length;
+      document.getElementById("slide").src=images[index];
+    },2000);
+
+  } else {
+    alert("Wrong Secret ❌");
+  }
+}
+</script>
+
+</body>
+</html>
